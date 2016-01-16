@@ -14,6 +14,8 @@
 #   [*server*]                  - Hostname or IP of the upstream member server
 #   [*port*]                    - Port of the listening service on the upstream member
 #   [*upstream_fail_timeout*]   - Set the fail_timeout for the upstream. Default is 10 seconds
+#   [*upstream_backup*]         - Set the upstream as backup in case primary upstreams fails.
+#   [*upstream_down*]           - Mark upstream as down and no request will be passed to it
 #
 #
 # Examples:
@@ -40,6 +42,8 @@ define nginx::resource::upstream::member (
   $ensure                 = 'present',
   $port                   = '80',
   $upstream_fail_timeout  = '10s',
+  $upstream_backup        = false,
+  $upstream_down          = false,
 ) {
 
   validate_re($ensure, '^(present|absent)$',
